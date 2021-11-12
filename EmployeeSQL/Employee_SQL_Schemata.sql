@@ -1,4 +1,4 @@
--- Titles schemata: PK title_id
+-- Titles schema: PK title_id
 -- New hire onboarding process begins with job reqs based on job titles
 CREATE TABLE TITLES(
 	TITLE_ID VARCHAR(10),
@@ -7,7 +7,7 @@ CREATE TABLE TITLES(
 
 SELECT * FROM TITLES
 
--- Employees schemata: PK emp_no, FK emp_title_id ref titles.title_id
+-- Employees schema: PK emp_no, FK emp_title_id ref titles.title_id
 CREATE TABLE EMPLOYEES(
 	EMP_NO INT NOT NULL,
 	EMP_TITLE_ID varchar, 
@@ -21,7 +21,7 @@ CREATE TABLE EMPLOYEES(
 
 SELECT * FROM EMPLOYEES
 
--- Salaries schemata: PK emp_no, FK emp_no ref employees.emp_no
+-- Salaries schema: PK emp_no, FK emp_no ref employees.emp_no
 CREATE TABLE SALARIES(
 	EMP_NO INT, 
 	SALARY MONEY,
@@ -30,7 +30,7 @@ CREATE TABLE SALARIES(
 
 SELECT * FROM SALARIES
 
--- Departments schemata: PK dept_no, FK dept_no ref dept_emp.dept_no
+-- Departments schema: PK dept_no, FK dept_no ref dept_emp.dept_no
 CREATE TABLE DEPARTMENTS(
 	DEPT_NO varchar, 
 	DEPT_NAME varchar, 
@@ -39,7 +39,7 @@ CREATE TABLE DEPARTMENTS(
 
 SELECT * FROM DEPARTMENTS
 
---Department Employees schemata: PK emp_no & dept_no, FK dept_emp.emp_no ref employees.emp_no & FK dept_emp.dept_no ref departments.dept_no (many to many) 
+--Department Employees schema: PK emp_no & dept_no, FK dept_emp.emp_no ref employees.emp_no & FK dept_emp.dept_no ref departments.dept_no (many to many) 
 CREATE TABLE DEPT_EMP(
 	EMP_NO INT, 
 	DEPT_NO varchar, 
@@ -49,7 +49,7 @@ CREATE TABLE DEPT_EMP(
 
 SELECT * FROM DEPT_EMP
 
--- Department Manager schemata: PK dept_no & emp_no, FK dept_manager.dept_no ref departments.dept_no & FK dept_manager.emp_no ref employees.emp_no (many to many)
+-- Department Manager schema: PK dept_no & emp_no, FK dept_manager.dept_no ref departments.dept_no & FK dept_manager.emp_no ref employees.emp_no (many to many)
 CREATE TABLE DEPT_MANAGER(
 	DEPT_NO varchar, 
 	EMP_NO INT, 
