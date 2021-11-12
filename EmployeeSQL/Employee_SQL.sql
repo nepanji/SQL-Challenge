@@ -1,11 +1,13 @@
+-- Titles schemata: PK title_id
+-- New hire onboarding process begins with job reqs based on job titles
 CREATE TABLE TITLES(
 	TITLE_ID VARCHAR(10),
 	TITLE VARCHAR(45) NOT NULL,
 	PRIMARY KEY (TITLE_ID));
 
-
 SELECT * FROM TITLES
 
+-- Employees schemata: PK emp_no, FK emp_title_id ref titles.title_id
 CREATE TABLE EMPLOYEES(
 	EMP_NO INT NOT NULL,
 	EMP_TITLE_ID varchar, 
@@ -17,27 +19,27 @@ CREATE TABLE EMPLOYEES(
 	PRIMARY KEY (EMP_NO),
 	FOREIGN KEY (EMP_TITLE_ID) REFERENCES TITLES.TITLE_ID);
 
-
 SELECT * FROM EMPLOYEES
 
+-- Salaries schemata: PK emp_no, FK emp_no ref employees.emp_no
 CREATE TABLE SALARIES(
 	EMP_NO INT, 
 	SALARY MONEY,
 	PRIMARY KEY (EMP_NO),
 	FOREIGN KEY (EMP_NO) REFERENCES EMPLOYEES.EMP_NO);
 
-
 SELECT * FROM SALARIES
 
+-- Departments schemata: PK dept_no, FK dept_no ref dept_emp.dept_no
 CREATE TABLE DEPARTMENTS(
 	DEPT_NO varchar, 
 	DEPT_NAME varchar, 
 	PRIMARY KEY (DEPT_NO),
 	FOREIGN KEY (DEPT_NO) REFERENCES DEPT_EMP.DEPT_NO);
 
-
 SELECT * FROM DEPARTMENTS
 
+--Department Employees schemata: PK emp_no & dept_no, FK dept_emp.emp_no ref employees.emp_no & FK dept_emp.dept_no ref departments.dept_no (many to many) 
 CREATE TABLE DEPT_EMP(
 	EMP_NO INT, 
 	DEPT_NO varchar, 
@@ -45,9 +47,9 @@ CREATE TABLE DEPT_EMP(
 	FOREIGN KEY (EMP_NO) REFERENCES EMPLOYEES.EMP_NO,
 	FOREIGN KEY (DEPT_NO) REFERENCES DEPARTMENTS.DEPT_NO);
 
-
 SELECT * FROM DEPT_EMP
 
+-- Department Manager schemata: PK dept_no & emp_no, FK dept_manager.dept_no ref departments.dept_no & FK dept_manager.emp_no ref employees.emp_no (many to many)
 CREATE TABLE DEPT_MANAGER(
 	DEPT_NO varchar, 
 	EMP_NO INT, 
@@ -56,84 +58,4 @@ CREATE TABLE DEPT_MANAGER(
 	FOREIGN KEY (EMP_NO) REFERENCES EMPLOYEES.EMP_NO);
 
 
-SELECT * FROM DEPT_MANAGER 
-
--- List each employees.employee number, employees.last name, employees.first name, employees.sex, and salaries.salary
-
-SELECT EMPLOYEES.EMP_NO,
-	EMPLOYEES.LAST_NAME,
-	EMPLOYEES.FIRST_NAME,
-	EMPLOYEES.SEX,
-	SALARIES.SALARY
-FROM EMPLOYEES
-JOIN SALARIES ON EMPLOYEES.EMP_NO = SALARIES.EMP_NO;
-
--- List employees.first name, employees.last name, and employees.hire date hired in 1986
-
-SELECT EMPLOYEES.FIRST_NAME,
-	EMPLOYEES.LAST_NAME,
-	EMPLOYEES.HIRE_DATE
-FROM EMPLOYEES
-WHERE HIRE_DATE like '%1986'
-ORDER BY HIRE_DATE ASC;
-
--- List manager of each department: dept_manager.department number, departments.department name, dept_manager.employee_number, employees.last name, employees.first name.
-
-SELECT DEPT_MANAGER.DEPT_NO,
-	DEPARTMENTS.DEPT_NAME,
-	DEPT_MANAGER.EMP_NO,
-	EMPLOYEES.LAST_NAME,
-	EMPLOYEES.FIRST_NAME
-FROM DEPT_MANAGER
-JOIN DEPARTMENTS ON DEPT_MANAGER.DEPT_NO = DEPARTMENTS.DEPT_NO
-JOIN EMPLOYEES ON DEPT_MANAGER.EMP_NO = EMPLOYEES.EMP_NO;
-
--- List department of each employee: employees.employee number, employees.last name, employees.first name, and departments.department name
-
-SELECT EMPLOYEES.EMP_NO,
-	EMPLOYEES.LAST_NAME,
-	EMPLOYEES.FIRST_NAME,
-	DEPARTMENTS.DEPT_NAME
-FROM EMPLOYEES
-JOIN DEPT_EMP ON EMPLOYEES.EMP_NO = DEPT_EMP.EMP_NO
-JOIN DEPARTMENTS ON DEPT_EMP.DEPT_NO = DEPARTMENTS.DEPT_NO;
-
--- List employees.first name, employees.last name, and employees.sex for first name is "Hercules" and last names begin with "B"
-
-SELECT FIRST_NAME,
-	LAST_NAME,
-	SEX
-FROM EMPLOYEES
-WHERE FIRST_NAME = 'Hercules'
-	AND LAST_NAME LIKE 'B%';
-
--- List all employees in the Sales department, including their employees.employee number, employees.last name, employees.first name, and departments.department name = Sales,
-
-SELECT EMPLOYEES.EMP_NO,
-	EMPLOYEES.LAST_NAME,
-	EMPLOYEES.FIRST_NAME,
-	DEPARTMENTS.DEPT_NAME
-FROM EMPLOYEES
-JOIN DEPT_EMP ON EMPLOYEES.EMP_NO = DEPT_EMP.EMP_NO
-JOIN DEPARTMENTS ON DEPT_EMP.DEPT_NO = DEPARTMENTS.DEPT_NO
-WHERE DEPARTMENTS.DEPT_NAME = 'Sales';
-
--- List all employees in the Sales and Development departments, including their employees.employee number, employees.last name, employees.first name, and departments.department name
-
-SELECT EMPLOYEES.EMP_NO,
-	EMPLOYEES.LAST_NAME,
-	EMPLOYEES.FIRST_NAME,
-	DEPARTMENTS.DEPT_NAME
-FROM EMPLOYEES
-JOIN DEPT_EMP ON EMPLOYEES.EMP_NO = DEPT_EMP.EMP_NO
-JOIN DEPARTMENTS ON DEPT_EMP.DEPT_NO = DEPARTMENTS.DEPT_NO
-WHERE DEPARTMENTS.DEPT_NAME = 'Sales'
-	OR DEPARTMENTS.DEPT_NAME = 'Development';
-
--- In descending order, list the frequency count of employees.last names, i.e., how many employees share each last name
-
-SELECT LAST_NAME,
-	COUNT(LAST_NAME)
-FROM EMPLOYEES
-GROUP BY LAST_NAME
-ORDER BY COUNT(LAST_NAME);
+SELECT * FROM DEPT_MANAGER
