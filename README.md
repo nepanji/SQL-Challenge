@@ -12,7 +12,7 @@ All that remain of the database of employees from that period are six CSV files.
 ### Data Modeling
 Initially, I inspected the CSVs and sketched out an ERD of the tables. 
 
-https://user-images.githubusercontent.com/89491352/141538819-876766fb-2832-4a0e-8060-41e3178e4dcb.png
+![image](https://user-images.githubusercontent.com/89491352/141539226-9c288d85-7763-4476-9b06-1c06e33ad2fc.png)
 
 ### Data Engineering
 While sketching out the ERD of the tables, I determined the order of how to create each table schema.
