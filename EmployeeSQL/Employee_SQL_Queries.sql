@@ -68,7 +68,7 @@ FROM EMPLOYEES
 JOIN DEPT_EMP ON EMPLOYEES.EMP_NO = DEPT_EMP.EMP_NO
 JOIN DEPARTMENTS ON DEPT_EMP.DEPT_NO = DEPARTMENTS.DEPT_NO
 WHERE DEPARTMENTS.DEPT_NAME = 'Sales'
-	OR DEPARTMENTS.DEPT_NAME = 'Development';
+	OR DEPARTMENTS.DEPT_NAME = 'Departments';
 
 -- In descending order, list the frequency count of employees.last names, i.e., how many employees share each last name
 
