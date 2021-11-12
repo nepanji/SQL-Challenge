@@ -44,7 +44,7 @@ I created a visual of the most common salary ranges in the company.
 Also, I created a bar chart of average salary by title.
   * Senior Staff and Staff have the highest average salaries
 
-Insert image
+![image](https://user-images.githubusercontent.com/89491352/141539433-6bbddd5f-abbd-4919-a876-ec44b2f1e048.png)
 
 To my surprise, I learned that I earn the minimum salary of $40K.
 
