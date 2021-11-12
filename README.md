@@ -39,7 +39,7 @@ Once I completed the database, the following queries were run:
 I created a visual of the most common salary ranges in the company. 
   * The most common salary range is from $40K to $50K
 
-insert image
+![image](https://user-images.githubusercontent.com/89491352/141539319-6b986849-6a22-4eda-bd74-db147b923c58.png)
 
 Also, I created a bar chart of average salary by title.
   * Senior Staff and Staff have the highest average salaries
